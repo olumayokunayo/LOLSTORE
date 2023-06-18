@@ -1,0 +1,84 @@
+.auth-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh;
+}
+.imageDiv {
+    animation: slide-down 0.5s ease;
+}
+form input {
+   display: block;
+   margin-top: 1rem;
+   width: 350px;
+   padding: 1rem;
+   border-radius: 5px;
+   outline: none;
+}
+form button {
+    margin-top: 1rem;
+    width: 100%;
+    padding: 1rem;
+    background-color:orangered;
+    color: #fff;
+    font-size: 2rem;
+    border-radius: 5px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+form p {
+    text-align: center;
+    margin: 1rem;
+    font-weight: 500;
+}
+.googleBtn {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    padding: 1rem;
+    background-color: red;
+    color: #fff;
+    cursor: pointer;
+}
+.auth-form {
+    animation: slide-up 0.5s ease-in;
+}
+.auth-form h1 {
+text-align: center;
+}
+.register{
+    text-align: center;
+}
+.active {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+@keyframes slide-down {
+    0%{
+        transform: translateY(-5rem);
+    }
+    100% {
+        transform: translateY((0));
+    }
+}
+@keyframes slide-up {
+    0% {
+        transform: translateY(5rem);
+    }
+    100%{
+        transform: translateY(0);
+    }
+}
+@media screen and (max-width: 700px) {
+    .imageDiv {
+        display: none;
+    }
+}
