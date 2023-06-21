@@ -6,6 +6,8 @@ import useFetchCollection from "../../customHooks/useFetchCollection";
 import { STORE_PRODUCTS, selectProducts } from "../../redux/slice/productSlice";
 import { useDispatch, useSelector } from "react-redux";
 import spinnerImg from "../../assets/spinner.jpg";
+import { GET_PRICE } from "../../redux/slice/productSlice";
+
 const Product = () => {
   const { data, isLoading } = useFetchCollection("products");
 
@@ -18,6 +20,12 @@ const Product = () => {
       })
     );
   }, [dispatch, data]);
+
+  useEffect(()=> {
+    dispatch(GET_PRICE({
+      products: data
+    }))
+  }, [dispatch, data])
   return (
     <section>
       <div className={`container ${styles.product}`}>

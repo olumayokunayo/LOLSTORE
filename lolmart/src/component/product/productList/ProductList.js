@@ -19,10 +19,12 @@ const ProductList = ({ products }) => {
 
   const filteredProducts = useSelector(selectFilteredProducts);
 
+  // FILTER BY SEARCH
   useEffect(() => {
     dispatch(FILTER_BY_SEARCH({ products, search }));
   }, [dispatch, products, search]);
 
+  // FILTER BY SORT
   useEffect(() => {
     dispatch(SORT_PRODUCTS({ products, sort }));
   }, [dispatch, products, sort]);
