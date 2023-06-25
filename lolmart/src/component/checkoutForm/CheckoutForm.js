@@ -11,6 +11,7 @@ import CheckoutSummary from "../checkoutSummary/CheckoutSummary";
 import Card from "../card/Card";
 import { toast } from "react-toastify";
 
+
 const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
@@ -28,9 +29,13 @@ const CheckoutForm = () => {
       "payment_intent_client_secret"
     );
 
+    const cardElement = elements.create("card");
+    cardElement.mount("#link-authentication-element");
+
     if (!clientSecret) {
       return;
     }
+
   }, [stripe]);
 
   const saveOrder = () => {
@@ -50,10 +55,10 @@ const CheckoutForm = () => {
       .confirmPayment({
         elements,
         confirmParams: {
-          // payment completion page
+          // Make sure to change this to your payment completion page
           return_url: "http://localhost:3000/checkout-success",
-        },
-        redirect: "if_required",
+
+        }
       })
       .then((result) => {
         // ok -paymentIntent // bad-error
@@ -95,6 +100,7 @@ const CheckoutForm = () => {
                 id={styles["payment-element"]}
                 // options={paymentElementOptions}
               />
+              <div id="element-container"></div>
               <button
                 disabled={isLoading || !stripe || !elements}
                 id="submit"

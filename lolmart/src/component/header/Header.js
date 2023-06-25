@@ -55,6 +55,7 @@ const Header = () => {
       </Link>
     </span>
   );
+  
   const fixedNavbar = () => {
     if (window.scrollY > 50) {
       setScrollPage(true);

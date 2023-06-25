@@ -15,7 +15,7 @@ import {
 } from "../../redux/slice/checkoutSlice";
 import { toast } from "react-toastify";
 import CheckoutForm from "../../component/checkoutForm/CheckoutForm";
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PK);
+const stripePromise = loadStripe(`${process.env.REACT_APP_STRIPE_PK}`);
 
 const Checkout = () => {
   const cartItems = useSelector(selectCartItems);
@@ -33,7 +33,7 @@ const Checkout = () => {
     dispatch(CALCULATE_TOTAL_QUANTITY());
   }, [dispatch, cartItems]);
 
-  const description = `eShop payment: Email: ${customerEmail}, Amount: ${totalAmount}`;
+  const description = `lolmart payment: Email: ${customerEmail}, Amount: ${totalAmount}`;
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
     fetch("http://localhost:4242/create-payment-intent", {
