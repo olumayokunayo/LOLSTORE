@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import styles from "./Header.module.scss";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { FaShoppingCart, FaTimes, FaUserCircle } from "react-icons/fa";
-import {AiOutlineCamera} from "react-icons/ai";
+import { AiOutlineCamera } from "react-icons/ai";
 
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase/config";
 import { toast, ToastContainer } from "react-toastify";
 import { onAuthStateChanged } from "firebase/auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   REMOVE_ACTIVE_USER,
   SET_ACTIVE_USER,
@@ -18,6 +18,11 @@ import ShowOnLogin, { ShowOnLogout } from "../hiddenLinks/HiddenLink";
 import AdminRouteOnly, {
   AdminRouteLink,
 } from "../adminOnlyRoute/AdminRouteOnly";
+import {
+  CALCULATE_TOTAL_QUANTITY,
+  selectCartTotalQuantity,
+  selectTotalQuantity,
+} from "../../redux/slice/cartSlice";
 const logo = (
   <div className={styles.logo}>
     <Link to="/">
@@ -28,22 +33,36 @@ const logo = (
   </div>
 );
 
-const cart = (
-  <span className={styles.cart}>
-    <Link to="/cart">
-      Cart
-      <FaShoppingCart size={20} />
-      <p>0</p>
-    </Link>
-  </span>
-);
 const activeLink = ({ isActive }) => (isActive ? `${styles.active}` : "");
+
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const [displayName, setDisplayName] = useState("");
+  const [scrollPage, setScrollPage] = useState(false);
+  const cartTotalQuantity = useSelector(selectCartTotalQuantity);
 
+  useEffect(() => {
+    dispatch(CALCULATE_TOTAL_QUANTITY());
+  }, []);
+  const cart = (
+    <span className={styles.cart}>
+      <Link to="/cart">
+        Cart
+        <FaShoppingCart size={20} />
+        <p>{cartTotalQuantity}</p>
+      </Link>
+    </span>
+  );
+  const fixedNavbar = () => {
+    if (window.scrollY > 50) {
+      setScrollPage(true);
+    } else {
+      setScrollPage(false);
+    }
+  };
+  window.addEventListener("scroll", fixedNavbar);
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -89,7 +108,7 @@ const Header = () => {
       });
   };
   return (
-    <header>
+    <header className={scrollPage ? `${styles.fixed}` : null}>
       <ToastContainer />
       <div className={styles.header}>
         {logo}
@@ -121,13 +140,13 @@ const Header = () => {
               </AdminRouteLink>
             </li>
 
-            <ShowOnLogin>
+            
               <li>
                 <NavLink to="/" className={activeLink}>
                   Home
                 </NavLink>
               </li>
-            </ShowOnLogin>
+         
             <li>
               <NavLink to="/contact" className={activeLink}>
                 Contact Us
@@ -161,7 +180,7 @@ const Header = () => {
                 </NavLink>
               </ShowOnLogin>
             </span>
-            <ShowOnLogin>{cart}</ShowOnLogin>
+          {cart}
           </div>
         </nav>
 

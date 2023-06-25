@@ -3,6 +3,10 @@ import { Home, Contact, Login, Register, Reset, Admin } from "./pages/";
 import { Header, Footer } from "./component";
 import AdminRouteOnly from "./component/adminOnlyRoute/AdminRouteOnly";
 import ProductDetails from "./component/product/productDetails/ProductDetails";
+import Cart from "./pages/cart/Cart";
+import CheckoutDetails from "./pages/checkout/CheckoutDetails";
+import Checkout from "./pages/checkout/Checkout";
+import CheckoutSuccess from "./pages/checkout/CheckoutSuccess";
 function App() {
   return (
     <>
@@ -23,6 +27,10 @@ function App() {
             }
           />
           <Route path="/product-details/:id" element={<ProductDetails />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout-details" element={<CheckoutDetails />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/checkout-success" element={<CheckoutSuccess />} />
         </Routes>
         <Footer />
       </BrowserRouter>

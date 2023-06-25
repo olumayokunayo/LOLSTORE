@@ -29,19 +29,23 @@ const ProductFilter = () => {
     ...new Set(products.map((product) => product.brand)),
   ];
 
+  // FILTER BY BRAND
   useEffect(() => {
     dispatch(FILTER_BY_BRAND({ products, brand }));
   }, [dispatch, products, brand]);
 
+  // FILTER BY PRICE
   useEffect(() => {
     dispatch(FILTER_BY_PRICE({ products, price }));
   }, [dispatch, products, price]);
 
+  // FILTER BY CATEGORIES
   const filterProducts = (cat) => {
     setCategory(cat);
     dispatch(FILTER_BY_CATEGORY({ products, category: cat }));
   };
 
+  // CLEAR FILTERS
   const clearFilters = () => {
     setBrand("All")
     setCategory("All")
@@ -77,7 +81,7 @@ const ProductFilter = () => {
         </select>
       </div>
       <h4>Price</h4>
-      <p>{`$${price}`}</p>
+      <h3 className={styles.p}>{`$${price}`}</h3>
       <div className={styles.price}>
         <input
           type="range"

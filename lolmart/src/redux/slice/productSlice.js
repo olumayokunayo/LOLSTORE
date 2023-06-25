@@ -22,8 +22,6 @@ const productSlice = createSlice({
       });
       const max = Math.max(...array);
       const min = Math.min(...array);
-      console.log(max, min);
-
       state.minPrice = min;
       state.maxPrice = max;
     },
