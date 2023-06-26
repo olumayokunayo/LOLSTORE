@@ -9,7 +9,7 @@
  
   header {
     width: 100%;
-    background-color: var(--dark-blue);
+    background-color: rgb(87, 72, 226);
     color: #fff;
   
    
@@ -31,7 +31,7 @@
       color: #fff;
       cursor: pointer;
       span {
-        color: rgba(255, 0, 0, 0.868);
+        color: rgba(255, 0, 0, 0.88);
       }
     }
   
@@ -125,7 +125,7 @@
         left: 0;
         width: 50%;
         height: 100vh;
-        background-color: var(--dark-blue);
+        background-color: rgb(3, 28, 92);
         padding: 1rem;
         z-index: 999;
         transform: translateX(-200%);
@@ -161,6 +161,8 @@
             border-bottom: 1px solid #333;
             a {
               display: block;
+              margin-top: 1rem;
+              font-size: 2rem;
             }
           }
         }
@@ -168,9 +170,10 @@
         .header-right {
           display: block;
           .cart {
+             margin-top: 1rem;
             // display: block;
             // padding: 5px 0;
-            border-bottom: 1px solid #333;
+            // border-bottom: 1px solid #333;
             // a {
             //   position: relative;
             //   p {
@@ -187,8 +190,10 @@
             a {
               display: block;
               margin: 0;
+              font-size: 2rem;
+              margin-top: 1rem;
               padding: 5px 0;
-              border-bottom: 1px solid #333;
+              // border-bottom: 1px solid #333;
             }
           }
         }
@@ -199,6 +204,7 @@
         // border-bottom: 1px solid #333;
         a {
           color: #fff;
+          font-size: 2rem;
           position: relative;
           &:hover {
             color:rgba(255, 0, 0, 0.868);
@@ -232,10 +238,17 @@
     color: rgba(255, 0, 0, 0.868);
   }
   .admin {
-    padding: 0.5rem;
-    background-color: blue;
+    padding: 1rem;
+    background-color:rgba(255, 0, 0, 0.88);
     border: none;
+    border-radius: 5px;
     color: #fff;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.5s ease;
+  }
+  .admin:hover {
+    background-color: red;
   }
   
 //   .active::after {

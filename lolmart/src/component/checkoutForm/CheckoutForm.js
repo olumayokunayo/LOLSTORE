@@ -10,9 +10,26 @@ import {
 import CheckoutSummary from "../checkoutSummary/CheckoutSummary";
 import Card from "../card/Card";
 import { toast } from "react-toastify";
-
-
+import { useSelector, useDispatch } from "react-redux";
+import {
+  CLEAR_CART,
+  selectCartItems,
+  selectCartTotalAmount,
+} from "../../redux/slice/cartSlice";
+import { selectEmail, selectUserID } from "../../redux/slice/authSlice";
+import { selectShippingAddress } from "../../redux/slice/checkoutSlice";
+import { Timestamp, addDoc, collection } from "firebase/firestore";
+import { db } from "../../firebase/config";
+import { useNavigate } from "react-router-dom";
 const CheckoutForm = () => {
+  const userID = useSelector(selectUserID);
+  const cartItems = useSelector(selectCartItems);
+  const cartTotalAmount = useSelector(selectCartTotalAmount);
+  const userEmail = useSelector(selectEmail);
+  const shippingAddress = useSelector(selectShippingAddress);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const stripe = useStripe();
   const elements = useElements();
 
@@ -35,10 +52,32 @@ const CheckoutForm = () => {
     if (!clientSecret) {
       return;
     }
-
   }, [stripe]);
 
-  const saveOrder = () => {
+  const saveOrder = async () => {
+    const today = new Date();
+    const date = today.toDateString();
+    const time = today.toLocaleTimeString();
+    const orderConfig = {
+      userID,
+      userEmail,
+      orderDate: date,
+      orderTime: time,
+      orderAmount: cartTotalAmount,
+      orderStatus: "Order Placed...",
+      cartItems,
+      shippingAddress,
+      createdAt: Timestamp.now().toDate(),
+    };
+
+    try {
+      await addDoc(collection(db, "orders"), orderConfig);
+      dispatch(CLEAR_CART());
+      toast.success("Order saved");
+      navigate("/checkout-success")
+    } catch (error) {
+      toast.error(error.message);
+    }
     console.log("Order saved");
   };
   const handleSubmit = async (e) => {
@@ -57,8 +96,8 @@ const CheckoutForm = () => {
         confirmParams: {
           // Make sure to change this to your payment completion page
           return_url: "http://localhost:3000/checkout-success",
-
-        }
+        },
+        redirect: "if_required"
       })
       .then((result) => {
         // ok -paymentIntent // bad-error
