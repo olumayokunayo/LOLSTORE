@@ -6,6 +6,7 @@ import Home from '../../component/admin/home/Home'
 import AddProduct from '../../component/admin/addProduct/AddProduct'
 import Orders from '../../component/admin/orders/Orders'
 import ViewProducts from '../../component/admin/allProducts/viewProducts'
+import OrderDetails from '../../component/admin/orderDetails/OrderDetails'
 const Admin = () => {
   return (
     <div className={styles.admin}>
@@ -18,6 +19,7 @@ const Admin = () => {
                 <Route path='add-product/:id' element={<AddProduct />} />
                 <Route path='all-products' element={<ViewProducts />} />
                 <Route path='orders' element={<Orders />} />
+                <Route path='order-details/:id' element={<OrderDetails />} />
             </Routes>
         </div>
     </div>

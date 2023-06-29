@@ -52,6 +52,13 @@
       width: 100%;
     }
   }
+  .list {
+    margin: auto;
+   display: grid;
+   grid-template-columns: repeat(1, 1fr);
+   gap: 1rem;
+   width: 50%;
+  }
   // .search {
   //   margin: 5px 0;
   //   position: relative;
@@ -82,6 +89,12 @@
       width: 100%;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
+    }
+    .list {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      width: 100%;
+      // background-color: red;
     }
     .top {
       flex-direction: column;
