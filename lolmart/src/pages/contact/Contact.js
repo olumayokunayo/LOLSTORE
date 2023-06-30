@@ -19,7 +19,7 @@ const Contact = () => {
 
     emailjs
       .sendForm(
-        "service_e5ttrt8",
+        process.env.REACT_APP_EMAILJS_SERVICE_ID,
         "template_kgu3gr5",
         form.current,
         "v4VdjG_J5QW0_Dp3S"
